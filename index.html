@@ -1,103 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Birthday Program</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
 
 <style>
+
 body{
 margin:0;
-background:black;
-color:#00ff9c;
-font-family: "Courier New", monospace;
-overflow:hidden;
-}
-
-/* terminal */
-
-#terminal{
-padding:40px;
-font-size:18px;
-line-height:1.7;
-white-space:pre-line;
-}
-
-/* scene */
-
-#scene{
-display:none;
 height:100vh;
-background:radial-gradient(circle at center,#ff8fab,#ff4d6d);
-text-align:center;
+display:flex;
+flex-direction:column;
+align-items:center;
+background:linear-gradient(180deg,#ff5d7a,#ff6f91);
+font-family: 'Courier New', monospace;
 color:white;
-position:relative;
 overflow:hidden;
 }
+
+/* TITLE */
 
 h1{
-margin-top:40px;
-font-size:48px;
-letter-spacing:2px;
+margin-top:60px;
+font-size:60px;
+letter-spacing:3px;
 }
+
+/* MESSAGE TEXT */
+
+.message{
+position:relative;
+top:-40px;
+font-size:22px;
+opacity:0.9;
+}
+
+/* PHOTOS */
+
+.photo{
+position:absolute;
+width:120px;
+height:120px;
+border-radius:20px;
+object-fit:cover;
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+#p1{ top:150px; left:8%; }
+#p2{ top:150px; right:8%; }
+#p3{ bottom:140px; left:12%; }
+#p4{ bottom:140px; right:12%; }
+
+/* CAKE */
 
 .cake{
 position:relative;
 width:220px;
-margin:100px auto 60px auto;
+margin-top:120px;
+top:80px;
 transform: perspective(800px) rotateX(8deg);
-top:90px;
 }
-  
-/* layers */
+
+/* CAKE LAYERS */
 
 .layer{
 position:absolute;
 width:220px;
 height:60px;
 background:linear-gradient(to bottom,#ffc2d1,#ff8fab);
-border-radius:12px;
+border-radius:14px;
 box-shadow:
 0 12px 20px rgba(0,0,0,0.25),
 inset 0 -8px 15px rgba(0,0,0,0.1),
 inset 0 6px 10px rgba(255,255,255,0.5);
-opacity:0;
 }
 
-.l1{top:150px;}
-.l2{top:100px;}
-.l3{top:50px;}
+.l1{ top:120px; }
+.l2{ top:70px; }
+.l3{ top:20px; }
+
+/* ICING */
 
 .icing{
 position:absolute;
-top:40px;
+top:10px;
 width:220px;
-height:22px;
+height:25px;
 background:linear-gradient(to bottom,#ffffff,#ffe5ec);
 border-radius:12px;
 box-shadow:0 6px 10px rgba(0,0,0,0.15);
-opacity:0;
 }
 
-/* candle */
+/* CANDLE */
 
 .candle{
 position:absolute;
-top:-10px;
-left:105px;
+top:-35px;
+left:50%;
+transform:translateX(-50%);
 width:10px;
-height:45px;
+height:40px;
 background:#ff4d6d;
-border-radius:5px;
-opacity:0;
+border-radius:3px;
 }
+
+/* FLAME */
 
 .flame{
 position:absolute;
-top:-22px;
-left:-1px;
+top:-18px;
+left:-2px;
 width:14px;
-height:20px;
-background:radial-gradient(circle, #fff200, orange, red);
+height:18px;
+background:radial-gradient(circle,#fff200,orange,red);
 border-radius:50%;
 box-shadow:
 0 0 20px orange,
@@ -106,54 +122,23 @@ animation:flicker .18s infinite alternate;
 }
 
 @keyframes flicker{
-from{transform:scale(1);}
-to{transform:scale(1.3);}
+from{ transform:scale(1); }
+to{ transform:scale(1.15); }
 }
 
-/* photos */
+/* CAKE SHADOW */
 
-.photo{
+.cake::after{
+content:"";
 position:absolute;
-width:110px;
-height:110px;
-object-fit:cover;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
-opacity:0;
-transform:scale(.5);
-transition:1s;
-}
-
-/* confetti */
-
-.confetti{
-position:absolute;
-width:7px;
-height:7px;
-animation:fall linear infinite;
-}
-
-@keyframes fall{
-0%{transform:translateY(-10vh);}
-100%{transform:translateY(110vh);}
-}
-
-/* hearts */
-
-.heart{
-position:absolute;
-font-size:20px;
-animation:float 6s linear infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-10vh);}
-}
-
-.message{
-position: relative;
-top: -50px;
+bottom:-35px;
+left:50%;
+transform:translateX(-50%);
+width:180px;
+height:30px;
+background:rgba(0,0,0,0.25);
+filter:blur(15px);
+border-radius:50%;
 }
 
 </style>
@@ -161,131 +146,29 @@ top: -50px;
 
 <body>
 
-<div id="terminal"></div>
+<h1>Happy Birthday Ko Doi!</h1>
 
-<div id="scene">
+<p class="message">I made this little program just for you ❤️</p>
 
-<h1>Happy Birthday Doi!</h1>
+<!-- PHOTOS (replace later) -->
+<img src="photo1.jpg" class="photo" id="p1">
+<img src="photo2.jpg" class="photo" id="p2">
+<img src="photo3.jpg" class="photo" id="p3">
+<img src="photo4.jpg" class="photo" id="p4">
 
-<div class="cake" id="cake">
-<div class="layer l1" id="l1"></div>
-<div class="layer l2" id="l2"></div>
-<div class="layer l3" id="l3"></div>
-<div class="icing" id="icing"></div>
+<!-- CAKE -->
+<div class="cake">
 
-<div class="candle" id="candle">
-<div class="flame" id="flame"></div>
-</div>
-</div>
+<div class="layer l1"></div>
+<div class="layer l2"></div>
+<div class="layer l3"></div>
+<div class="icing"></div>
 
-<p class="message">
-I made this little program just for you ❤️
-</p>
-
-<img src="photo1.jpg" class="photo" id="p1" style="top:120px; left:8%;">
-<img src="photo2.jpg" class="photo" id="p2" style="top:120px; right:8%;">
-<img src="photo3.jpg" class="photo" id="p3" style="bottom:130px; left:15%;">
-<img src="photo4.jpg" class="photo" id="p4" style="bottom:130px; right:15%;">
-
+<div class="candle">
+<div class="flame"></div>
 </div>
 
-<audio id="music" loop>
-<source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-
-/* more accurate terminal typing */
-
-let lines = [
-"booting loveOS...",
-"checking system date...",
-"birthday detected ✔",
-"loading surprise modules...",
-"building cake assets...",
-"loading memories...",
-"run surprise.exe"
-];
-
-let terminal = document.getElementById("terminal");
-let lineIndex = 0;
-
-function typeLine(){
-if(lineIndex < lines.length){
-terminal.innerHTML += lines[lineIndex] + "\n";
-lineIndex++;
-setTimeout(typeLine,700);
-}else{
-setTimeout(startScene,900);
-}
-}
-
-typeLine();
-
-/* start scene */
-
-function startScene(){
-
-terminal.style.display="none";
-document.getElementById("scene").style.display="block";
-document.getElementById("music").play();
-
-buildCake();
-
-}
-
-/* cake animation */
-
-function buildCake(){
-
-let cake=document.getElementById("cake");
-cake.style.transform="scale(1)";
-
-setTimeout(()=>l1.style.opacity=1,600);
-setTimeout(()=>l2.style.opacity=1,1100);
-setTimeout(()=>l3.style.opacity=1,1600);
-setTimeout(()=>icing.style.opacity=1,2100);
-setTimeout(()=>candle.style.opacity=1,2600);
-setTimeout(()=>flame.style.opacity=1,3000);
-setTimeout(showPhotos,3400);
-setTimeout(confettiExplosion,3500);
-
-}
-
-/* photos appear */
-
-function showPhotos(){
-document.querySelectorAll(".photo").forEach(p=>{
-p.style.opacity=1;
-p.style.transform="scale(1)";
-});
-}
-
-/* confetti */
-
-function confettiExplosion(){
-
-for(let i=0;i<80;i++){
-let c=document.createElement("div");
-c.className="confetti";
-c.style.left=Math.random()*100+"vw";
-c.style.background=`hsl(${Math.random()*360},100%,50%)`;
-c.style.animationDuration=(2+Math.random()*3)+"s";
-document.body.appendChild(c);
-}
-
-setInterval(()=>{
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=Math.random()*100+"vw";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-},600);
-
-}
-
-</script>
+</div>
 
 </body>
 </html>
