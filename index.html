@@ -45,9 +45,8 @@ letter-spacing:2px;
 .cake{
 position:relative;
 width:220px;
-margin:120px auto 40px auto;
-transform:scale(0);
-transition:1.2s ease;
+margin:180px auto 60px auto;
+transform: perspective(800px) rotateX(8deg);
 }
 
 /* layers */
@@ -56,23 +55,27 @@ transition:1.2s ease;
 position:absolute;
 width:220px;
 height:60px;
-background:#ffb3c6;
+background:linear-gradient(to bottom,#ffc2d1,#ff8fab);
 border-radius:12px;
+box-shadow:
+0 12px 20px rgba(0,0,0,0.25),
+inset 0 -8px 15px rgba(0,0,0,0.1),
+inset 0 6px 10px rgba(255,255,255,0.5);
 opacity:0;
-box-shadow:0 8px 20px rgba(0,0,0,0.3);
 }
 
-.l1{top:130px;}
-.l2{top:90px;}
+.l1{top:150px;}
+.l2{top:100px;}
 .l3{top:50px;}
 
 .icing{
 position:absolute;
 top:40px;
 width:220px;
-height:20px;
-background:white;
-border-radius:10px;
+height:22px;
+background:linear-gradient(to bottom,#ffffff,#ffe5ec);
+border-radius:12px;
+box-shadow:0 6px 10px rgba(0,0,0,0.15);
 opacity:0;
 }
 
@@ -91,15 +94,16 @@ opacity:0;
 
 .flame{
 position:absolute;
-top:-20px;
+top:-22px;
 left:-1px;
-width:12px;
-height:18px;
-background:gold;
+width:14px;
+height:20px;
+background:radial-gradient(circle, #fff200, orange, red);
 border-radius:50%;
-opacity:0;
-box-shadow:0 0 20px gold;
-animation:flicker .25s infinite alternate;
+box-shadow:
+0 0 20px orange,
+0 0 40px gold;
+animation:flicker .18s infinite alternate;
 }
 
 @keyframes flicker{
@@ -288,4 +292,3 @@ setTimeout(()=>heart.remove(),6000);
 
 </body>
 </html>
-```
