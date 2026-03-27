@@ -5,25 +5,24 @@
 <title>Birthday Program</title>
 
 <style>
-
 body{
 margin:0;
-background:#000;
+background:black;
 color:#00ff9c;
 font-family: "Courier New", monospace;
 overflow:hidden;
 }
 
-/* TERMINAL */
+/* terminal */
 
 #terminal{
 padding:40px;
 font-size:18px;
-line-height:1.6;
+line-height:1.7;
 white-space:pre-line;
 }
 
-/* SCENE */
+/* scene */
 
 #scene{
 display:none;
@@ -38,17 +37,20 @@ overflow:hidden;
 h1{
 margin-top:40px;
 font-size:48px;
+letter-spacing:2px;
 }
 
-/* CAKE */
+/* CAKE (lowered position) */
 
 .cake{
 position:relative;
 width:220px;
-margin:40px auto;
+margin:120px auto 40px auto;
 transform:scale(0);
 transition:1.2s ease;
 }
+
+/* layers */
 
 .layer{
 position:absolute;
@@ -57,6 +59,7 @@ height:60px;
 background:#ffb3c6;
 border-radius:12px;
 opacity:0;
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
 }
 
 .l1{top:130px;}
@@ -73,9 +76,11 @@ border-radius:10px;
 opacity:0;
 }
 
+/* candle */
+
 .candle{
 position:absolute;
-top:-5px;
+top:-10px;
 left:105px;
 width:10px;
 height:45px;
@@ -93,15 +98,16 @@ height:18px;
 background:gold;
 border-radius:50%;
 opacity:0;
+box-shadow:0 0 20px gold;
 animation:flicker .25s infinite alternate;
 }
 
 @keyframes flicker{
 from{transform:scale(1);}
-to{transform:scale(1.25);}
+to{transform:scale(1.3);}
 }
 
-/* PHOTOS AROUND CAKE */
+/* photos */
 
 .photo{
 position:absolute;
@@ -109,13 +115,13 @@ width:110px;
 height:110px;
 object-fit:cover;
 border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
 opacity:0;
 transform:scale(.5);
 transition:1s;
 }
 
-/* CONFETTI */
+/* confetti */
 
 .confetti{
 position:absolute;
@@ -129,7 +135,7 @@ animation:fall linear infinite;
 100%{transform:translateY(110vh);}
 }
 
-/* HEARTS */
+/* hearts */
 
 .heart{
 position:absolute;
@@ -175,11 +181,10 @@ padding:10px 20px;
 I made this little program just for you ❤️
 </p>
 
-<!-- PHOTOS -->
-<img src="photo1.jpg" class="photo" id="p1" style="top:100px; left:10%;">
-<img src="photo2.jpg" class="photo" id="p2" style="top:120px; right:10%;">
-<img src="photo3.jpg" class="photo" id="p3" style="bottom:120px; left:15%;">
-<img src="photo4.jpg" class="photo" id="p4" style="bottom:110px; right:15%;">
+<img src="photo1.jpg" class="photo" id="p1" style="top:120px; left:8%;">
+<img src="photo2.jpg" class="photo" id="p2" style="top:120px; right:8%;">
+<img src="photo3.jpg" class="photo" id="p3" style="bottom:130px; left:15%;">
+<img src="photo4.jpg" class="photo" id="p4" style="bottom:130px; right:15%;">
 
 </div>
 
@@ -189,85 +194,77 @@ I made this little program just for you ❤️
 
 <script>
 
-/* TERMINAL TEXT (very similar to video style) */
+/* more accurate terminal typing */
 
-let text = `
-booting loveOS...
+let lines = [
+"booting loveOS...",
+"checking system date...",
+"birthday detected ✔",
+"loading surprise modules...",
+"building cake assets...",
+"loading memories...",
+"run surprise.exe"
+];
 
-checking date...
+let terminal = document.getElementById("terminal");
+let lineIndex = 0;
 
-✔ birthday detected
-
-loading surprise modules...
-
-building cake...
-
-loading memories...
-
-run surprise.exe
-`;
-
-let i=0;
-
-function type(){
-if(i<text.length){
-document.getElementById("terminal").innerHTML += text.charAt(i);
-i++;
-setTimeout(type,30);
+function typeLine(){
+if(lineIndex < lines.length){
+terminal.innerHTML += lines[lineIndex] + "\n";
+lineIndex++;
+setTimeout(typeLine,700);
 }else{
-setTimeout(startScene,1000);
+setTimeout(startScene,900);
 }
 }
 
-type();
+typeLine();
 
-/* START SCENE */
+/* start scene */
 
 function startScene(){
 
-document.getElementById("terminal").style.display="none";
+terminal.style.display="none";
 document.getElementById("scene").style.display="block";
-
 document.getElementById("music").play();
 
 buildCake();
 
 }
 
-/* CAKE BUILD ANIMATION */
+/* cake animation */
 
 function buildCake(){
 
 let cake=document.getElementById("cake");
 cake.style.transform="scale(1)";
 
-setTimeout(()=>l1.style.opacity=1,500);
-setTimeout(()=>l2.style.opacity=1,1000);
-setTimeout(()=>l3.style.opacity=1,1500);
-setTimeout(()=>icing.style.opacity=1,2000);
-setTimeout(()=>candle.style.opacity=1,2500);
+setTimeout(()=>l1.style.opacity=1,600);
+setTimeout(()=>l2.style.opacity=1,1100);
+setTimeout(()=>l3.style.opacity=1,1600);
+setTimeout(()=>icing.style.opacity=1,2100);
+setTimeout(()=>candle.style.opacity=1,2600);
 setTimeout(()=>flame.style.opacity=1,3000);
 setTimeout(showPhotos,3400);
 setTimeout(confettiExplosion,3500);
 
 }
 
-/* PHOTOS APPEAR */
+/* photos appear */
 
 function showPhotos(){
-
 document.querySelectorAll(".photo").forEach(p=>{
 p.style.opacity=1;
 p.style.transform="scale(1)";
 });
-
 }
 
-/* CONFETTI */
+/* confetti */
 
 function confettiExplosion(){
 
-for(let i=0;i<70;i++){
+for(let i=0;i<80;i++){
 let c=document.createElement("div");
 c.className="confetti";
 c.style.left=Math.random()*100+"vw";
@@ -275,8 +272,6 @@ c.style.background=`hsl(${Math.random()*360},100%,50%)`;
 c.style.animationDuration=(2+Math.random()*3)+"s";
 document.body.appendChild(c);
 }
-
-/* floating hearts */
 
 setInterval(()=>{
 let heart=document.createElement("div");
