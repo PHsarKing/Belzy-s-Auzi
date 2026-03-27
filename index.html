@@ -6,34 +6,25 @@
 <title>Birthday Surprise</title>
 
 <style>
-
 body{
 margin:0;
 height:100vh;
 background:black;
-font-family: 'Courier New', monospace;
+font-family: monospace;
 overflow:hidden;
+color:#00ff9d;
 }
 
-/* INTRO SCREEN */
+/* FAKE CODING SCREEN */
 
-#intro{
+#codeScreen{
 position:absolute;
 width:100%;
 height:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-color:white;
-font-size:32px;
-letter-spacing:2px;
-animation:introFade 4s forwards;
-}
-
-@keyframes introFade{
-0%{opacity:1;}
-70%{opacity:1;}
-100%{opacity:0;}
+padding:40px;
+box-sizing:border-box;
+font-size:18px;
+line-height:1.6;
 }
 
 /* MAIN SCENE */
@@ -42,50 +33,24 @@ animation:introFade 4s forwards;
 position:absolute;
 width:100%;
 height:100%;
+background:linear-gradient(180deg,#ff5d7a,#ff6f91);
 display:flex;
 flex-direction:column;
 align-items:center;
-background:linear-gradient(180deg,#ff5d7a,#ff6f91);
 color:white;
 opacity:0;
-animation:showMain 2s forwards;
-animation-delay:4s;
+transition:1s;
 }
-
-@keyframes showMain{
-to{opacity:1;}
-}
-
-/* TITLE */
 
 h1{
 margin-top:60px;
-font-size:60px;
+font-size:55px;
 }
-
-/* MESSAGE */
 
 .message{
-position:relative;
-top:-40px;
+margin-top:-20px;
 font-size:22px;
 }
-
-/* PHOTOS */
-
-.photo{
-position:absolute;
-width:120px;
-height:120px;
-border-radius:20px;
-object-fit:cover;
-box-shadow:0 10px 25px rgba(0,0,0,0.25);
-}
-
-#p1{ top:150px; left:8%; }
-#p2{ top:150px; right:8%; }
-#p3{ bottom:140px; left:12%; }
-#p4{ bottom:140px; right:12%; }
 
 /* CAKE */
 
@@ -93,11 +58,7 @@ box-shadow:0 10px 25px rgba(0,0,0,0.25);
 position:relative;
 width:220px;
 margin-top:120px;
-top:80px;
-transform: perspective(800px) rotateX(8deg);
 }
-
-/* LAYERS */
 
 .layer{
 position:absolute;
@@ -105,28 +66,20 @@ width:220px;
 height:60px;
 background:linear-gradient(to bottom,#ffc2d1,#ff8fab);
 border-radius:14px;
-box-shadow:
-0 12px 20px rgba(0,0,0,0.25),
-inset 0 -8px 15px rgba(0,0,0,0.1),
-inset 0 6px 10px rgba(255,255,255,0.5);
 }
 
 .l1{ top:120px; }
 .l2{ top:70px; }
 .l3{ top:20px; }
 
-/* ICING */
-
 .icing{
 position:absolute;
 top:10px;
 width:220px;
 height:25px;
-background:linear-gradient(to bottom,#ffffff,#ffe5ec);
+background:white;
 border-radius:12px;
 }
-
-/* CANDLE */
 
 .candle{
 position:absolute;
@@ -144,69 +97,86 @@ top:-18px;
 left:-2px;
 width:14px;
 height:18px;
-background:radial-gradient(circle,#fff200,orange,red);
+background:radial-gradient(circle,yellow,orange,red);
 border-radius:50%;
-box-shadow:
-0 0 20px orange,
-0 0 40px gold;
-animation:flicker .18s infinite alternate;
+animation:flicker .2s infinite alternate;
 }
 
 @keyframes flicker{
 from{transform:scale(1);}
-to{transform:scale(1.15);}
+to{transform:scale(1.2);}
 }
-
-/* SHADOW */
-
-.cake::after{
-content:"";
-position:absolute;
-bottom:-35px;
-left:50%;
-transform:translateX(-50%);
-width:180px;
-height:30px;
-background:rgba(0,0,0,0.25);
-filter:blur(15px);
-border-radius:50%;
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
-<div id="intro">
-Loading something special...
+<div id="codeScreen">
+<pre id="code"></pre>
 </div>
 
-<!-- MAIN -->
 <div id="main">
 
 <h1>Happy Birthday Ko Doi!</h1>
-
-<p class="message">I made this little program just for you ❤️</p>
-
-<img src="photo1.jpg" class="photo" id="p1">
-<img src="photo2.jpg" class="photo" id="p2">
-<img src="photo3.jpg" class="photo" id="p3">
-<img src="photo4.jpg" class="photo" id="p4">
+<p class="message">This program was made just for you ❤️</p>
 
 <div class="cake">
 <div class="layer l1"></div>
 <div class="layer l2"></div>
 <div class="layer l3"></div>
 <div class="icing"></div>
-
 <div class="candle">
 <div class="flame"></div>
 </div>
-
 </div>
 
 </div>
+
+<script>
+
+const lines = [
+"Initializing birthday protocol...",
+"Loading memories...",
+"Connecting to heart.exe",
+"Bypassing sadness firewall...",
+"Compiling happiness...",
+"Injecting love variables...",
+"Creating surprise...",
+"Done.",
+"",
+"> Launching Birthday Program..."
+];
+
+let i = 0;
+let j = 0;
+const speed = 35;
+const codeElement = document.getElementById("code");
+
+function type(){
+if(i < lines.length){
+if(j < lines[i].length){
+codeElement.innerHTML += lines[i].charAt(j);
+j++;
+setTimeout(type, speed);
+}else{
+codeElement.innerHTML += "\n";
+i++;
+j = 0;
+setTimeout(type, 200);
+}
+}else{
+setTimeout(showMain, 800);
+}
+}
+
+function showMain(){
+document.getElementById("codeScreen").style.display="none";
+document.getElementById("main").style.opacity="1";
+}
+
+type();
+
+</script>
 
 </body>
 </html>
