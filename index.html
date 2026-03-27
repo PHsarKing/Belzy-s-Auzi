@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Birthday Program</title>
+
+<style>
+
+body{
+margin:0;
+background:black;
+font-family:monospace;
+overflow:hidden;
+color:#00ff9c;
+}
+
+/* terminal */
+
+#terminal{
+padding:40px;
+font-size:20px;
+white-space:pre-line;
+}
+
+/* birthday scene */
+
+#scene{
+display:none;
+text-align:center;
+color:white;
+height:100vh;
+background:linear-gradient(135deg,#ff6a88,#ff99ac);
+overflow:hidden;
+}
+
+h1{
+margin-top:60px;
+font-size:45px;
+}
+
+/* cake */
+
+.cake{
+position:relative;
+width:200px;
+margin:40px auto;
+opacity:0;
+transform:scale(0.5);
+transition:1s;
+}
+
+.layer{
+position:absolute;
+width:200px;
+height:60px;
+background:#ff8fab;
+border-radius:10px;
+opacity:0;
+}
+
+.layer1{top:120px;}
+.layer2{top:80px;}
+.layer3{top:40px;}
+
+.icing{
+position:absolute;
+top:30px;
+width:200px;
+height:20px;
+background:white;
+border-radius:10px;
+opacity:0;
+}
+
+.candle{
+position:absolute;
+top:-10px;
+left:95px;
+width:10px;
+height:40px;
+background:#ff4d6d;
+border-radius:5px;
+opacity:0;
+}
+
+.flame{
+width:12px;
+height:20px;
+background:gold;
+border-radius:50%;
+position:absolute;
+top:-20px;
+left:-1px;
+opacity:0;
+animation:flicker 0.2s infinite alternate;
+}
+
+@keyframes flicker{
+from{transform:scale(1);}
+to{transform:scale(1.2);}
+}
+
+/* confetti */
+
+.confetti{
+position:absolute;
+width:8px;
+height:8px;
+background:white;
+animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(100vh);}
+}
+
+/* hearts */
+
+.heart{
+position:absolute;
+color:red;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
+}
+
+.message{
+font-size:20px;
+max-width:600px;
+margin:auto;
+padding:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="terminal"></div>
+
+<div id="scene">
+
+<h1>🎂 Happy Birthday</h1>
+
+<div class="cake" id="cake">
+<div class="layer layer1" id="l1"></div>
+<div class="layer layer2" id="l2"></div>
+<div class="layer layer3" id="l3"></div>
+<div class="icing" id="icing"></div>
+
+<div class="candle" id="candle">
+<div class="flame" id="flame"></div>
+</div>
+</div>
+
+<p class="message">
+Today is your special day ❤️  
+This little program was made just for you.
+</p>
+
+</div>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* typing intro */
+
+let text = `
+> booting loveOS...
+
+> checking today's date...
+
+> detected: birthday 🎉
+
+> loading surprise modules...
+
+> building cake...
+
+> execute( birthday.exe )
+
+`;
+
+let i=0;
+
+function typing(){
+if(i < text.length){
+document.getElementById("terminal").innerHTML += text.charAt(i);
+i++;
+setTimeout(typing,35);
+}else{
+setTimeout(startScene,1200);
+}
+}
+
+typing();
+
+/* scene start */
+
+function startScene(){
+
+document.getElementById("terminal").style.display="none";
+document.getElementById("scene").style.display="block";
+document.body.style.overflow="auto";
+
+document.getElementById("music").play();
+
+buildCake();
+
+}
+
+/* cake animation */
+
+function buildCake(){
+
+let cake=document.getElementById("cake");
+cake.style.opacity=1;
+cake.style.transform="scale(1)";
+
+setTimeout(()=>{document.getElementById("l1").style.opacity=1;},500);
+setTimeout(()=>{document.getElementById("l2").style.opacity=1;},1000);
+setTimeout(()=>{document.getElementById("l3").style.opacity=1;},1500);
+setTimeout(()=>{document.getElementById("icing").style.opacity=1;},2000);
+setTimeout(()=>{document.getElementById("candle").style.opacity=1;},2500);
+setTimeout(()=>{document.getElementById("flame").style.opacity=1;},3000);
+setTimeout(explosion,3500);
+
+}
+
+/* confetti explosion */
+
+function explosion(){
+
+for(let i=0;i<80;i++){
+
+let confetti=document.createElement("div");
+confetti.className="confetti";
+confetti.style.left=Math.random()*100+"vw";
+confetti.style.background=`hsl(${Math.random()*360},100%,50%)`;
+confetti.style.animationDuration=(2+Math.random()*3)+"s";
+
+document.body.appendChild(confetti);
+
+}
+
+/* hearts */
+
+setInterval(()=>{
+
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),6000);
+
+},600);
+
+}
+
+</script>
+
+</body>
+</html>
